@@ -1,11 +1,8 @@
 name: "🧐 [Lint] Checking IR files"
 
 on:
-  pull_request:
+  pull_request_target:
     paths: '**.ir'
-
-permissions:
-  pull-requests: write
 
 jobs:
   lint:
@@ -13,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # checkout IRDB
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       # checkout Linter
