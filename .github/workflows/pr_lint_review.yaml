@@ -28,6 +28,8 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35.1.0
         with:
+          sha: "${{ github.pull_request.sha }}"
+          base_sha: "${{ github.sha }}"
           files: "**/*.ir"
           separator: "\n"
 
