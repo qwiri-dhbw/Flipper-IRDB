@@ -1,7 +1,7 @@
 name: "🧐 [Lint] Checking IR files"
 
 on:
-  pull_request:
+  pull_request_target:
     paths: '**.ir'
     
 jobs:
