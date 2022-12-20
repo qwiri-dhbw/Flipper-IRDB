@@ -28,6 +28,7 @@ jobs:
         with:
           files: "**/*.ir"
           separator: "\n"
+          sha: ${{ github.event.pull_request.head.sha }}
           
       - name: Save changed file names to file
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}' > changed_file_list.txt
