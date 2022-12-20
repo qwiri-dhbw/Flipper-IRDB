@@ -10,14 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # checkout IRDB
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+      - uses: actions/checkout@v3
 
+      # checkout Linter
       - name: Clean Script Directory
         run: rm -rf fff-ir-lint
-
       # checkout Linter
       - uses: actions/checkout@v3
         with:
@@ -27,12 +24,13 @@ jobs:
       # only check files changed in the PR
       - name: Get Changed Files
         id: changed-files
-        uses: tj-actions/changed-files@v29.0.7
+        uses: tj-actions/changed-files@v35.1.0
         with:
+          base_sha: 'HEAD~1'
+          sha: 'HEAD'
           files: "**/*.ir"
           separator: "\n"
-          sha: ${{ github.event.pull_request.head.sha }}
-          
+
       - name: Save changed file names to file
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}' > changed_file_list.txt
       
@@ -53,7 +51,10 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           comment-body: |
-            ${{ steps.run.outputs.stdout }}
+            <details>
+              <summary>🐛 Linter Result</summary>
+              ${{ steps.run.outputs.stdout }}
+            </details>
 
       - name: Fail Pipeline
         if: ${{ steps.run.outputs.stderr }}
