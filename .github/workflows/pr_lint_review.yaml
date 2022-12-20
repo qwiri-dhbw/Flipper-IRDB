@@ -12,7 +12,7 @@ jobs:
       # checkout IRDB
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 
       # checkout Linter
       - name: Clean Script Directory
@@ -28,8 +28,8 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35.1.0
         with:
-          sha: "${{ github.pull_request.sha }}"
-          base_sha: "${{ github.sha }}"
+          base_sha: 'HEAD~1'
+          sha: 'HEAD'
           files: "**/*.ir"
           separator: "\n"
 
