@@ -12,7 +12,7 @@ jobs:
       # checkout IRDB
       - uses: actions/checkout@v3
         with:
-          ref: ${{github.event.pull_request.base.sha}}
+          ref: "refs/pull/${{ github.event.number }}/merge"
           fetch-depth: 0
 
       # checkout Linter
@@ -29,7 +29,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35.1.0
         with:
-          sha: ${{ github.event.pull_request.head.sha }}
+          use_fork_point: "true"
           files: "**/*.ir"
           separator: "\n"
 
