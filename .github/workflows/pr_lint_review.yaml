@@ -27,15 +27,10 @@ jobs:
       # only check files changed in the PR
       - name: Get Changed Files
         id: changed-files
-        uses: tj-actions/changed-files@a59f800cbb60ed483623848e31be67659a2940f8
-        with:
-          sha: "${{ github.pull_request.sha }}"
-          base_sha: "${{ github.sha }}"
-          files: "**/*.ir"
-          separator: "\n"
+        uses: darmiel/changed-files@b844554c02c9e6fd797b522b930072a24a7e4b4a
 
-      - name: Save changed file names to file
-        run: echo '${{ steps.changed-files.outputs.all_changed_files }}' > changed_file_list.txt
+      - name: Combine modified and added files
+        run: cat .changed-files.{modified,added}.txt | uniq > changed_file_list.txt
       
       - uses: actions/setup-python@v4
         with:
