@@ -27,7 +27,7 @@ jobs:
       # only check files changed in the PR
       - name: Get Changed Files
         id: changed-files
-        uses: darmiel/changed-files@b844554c02c9e6fd797b522b930072a24a7e4b4a
+        uses: darmiel/changed-files@e546565152cbb02816592d44fd46e37d8c2dd2f7
 
       - name: Combine modified and added files
         run: cat .changed-files.{modified,added}.txt | uniq > changed_file_list.txt
